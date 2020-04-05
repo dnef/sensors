@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="model">
+    <table class="table table-bordered table-hover horizontal-align">
+        <a th:href="@{/model/addFormModel}"><button>New</button></a>
+        <thead>
+        <tr>
+            <th style="width: 5%">#</th>
+            <th style="width: 50%">Model</th>
+            <th style="width: 50%">Ver</th>
+            <th style="width: 50%">type</th>
+            <th style="width: 5%">Edit</th>
+            <th style="width: 5%">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="modelsensor, iterStat : ${listModelSensor}">
+            <td th:text="${iterStat.count}"style="text-align: center">#</td><!-- порядковый номер НЕ ID-->
+            <!--<td th:text="${country.idCountry}" style="text-align: center">ID</td>-->
+            <td th:text="${modelsensor.typesensByTypesensId.nameType}" style="text-align: center">Тип</td>
+            <td th:text="${modelsensor.modelName}" style="text-align: center">Модель</td>
+            <td th:text="${modelsensor.modelVersion}" style="text-align: center">Версия</td>
+            <td style="text-align: center"><a th:href="@{/model/updateFormModel(idModel=${modelsensor.idModel})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
+            <td style="text-align: center"><a th:href="@{/model/delete(idModel=${modelsensor.idModel})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>

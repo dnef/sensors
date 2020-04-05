@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+      <property name="connection.url">jdbc:mysql://localhost:3306/zmb_pribor</property>
+      <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+
+
+      <mapping class="gtes.entity.Country"/>
+      <mapping class="gtes.entity.Firm"/>
+      <mapping class="gtes.entity.Location"/>
+      <mapping class="gtes.entity.ModelSensor"/>
+      <mapping class="gtes.entity.Sensor"/>
+      <mapping class="gtes.entity.Typesens"/>
+      <mapping class="gtes.entity.Unit"/>
+      <mapping class="gtes.entity.Archive"/>
+      <mapping class="gtes.entity.LocationInstall"/>
+      <mapping class="gtes.entity.Disposal"/>
+
+
+
+      <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

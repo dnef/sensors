@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+<!--    <meta charset="UTF-8">-->
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="container">
+        <form class="form-horizontal" action="#" th:action="@{/unit/saveUnit}" th:object="${unit}" name="input_form" id="input_form"
+              method="post" role="form">
+            <div class="form-group">
+                <input style="width:50%" type="text" class="form-control" th:field="*{unitName}" placeholder="Enter name unit." maxlength="50"/>
+                <p class="message" th:if="${#fields.hasErrors('unitName')}" th:errors="*{unitName}">Name Error</p>
+                <!--                <p><input type="submit" class="btn btn-primary" value="Submit" /> <input type="reset" class="btn btn-primary" value="Reset" /></p>-->
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="Reset" class="btn btn-primary">Очистить</button>
+        </form>
+        <a th:href="@{/unit/units}"><button class="btn btn-primary">Отмена</button></a>
+    </div>
+</body>
+</html>

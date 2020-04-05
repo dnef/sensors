@@ -1,0 +1,53 @@
+<!--<!DOCTYPE HTML>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--<title>Getting Started: Handing Form Submission</title>-->
+<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Form</h1>-->
+<!--<form action="#" th:action="@{/country/saveCountry}" th:object="${country}" method="post">-->
+<!--&lt;!&ndash;<p>Id: <input type="text" th:field="*{idCountry}" /></p>&ndash;&gt;-->
+<!--<p>Message: <input type="text" th:field="*{countryName}" /></p>-->
+<!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="container">
+        <form class="form-horizontal" action="#" th:action="@{/model/saveModelSensor}" th:object="${modelsensor}" name="input_form" id="input_form"
+              method="post" role="form">
+            <div class="form-group">
+                <tr>
+                    <td>Select:</td>
+                    <td>
+                        <select th:field="${modelsensor.typesensId}">
+                            <option value=""> -- </option>
+                            <option th:each="typesens : ${typesensList}"
+                                    th:value="${typesens.idTypesens}"
+                                    th:utext="${typesens.nameType}"/>
+                        </select>
+
+                    </td>
+                </tr>
+                <input type="text" class="form-control" th:field="*{modelName}" placeholder="Enter name model." maxlength="50"/>
+                <input type="text" class="form-control" th:field="*{modelVersion}" placeholder="Enter version." maxlength="50"/>
+                <p class="message" th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}">Name Error</p>
+                <p class="message" th:if="${#fields.hasErrors('modelVersion')}" th:errors="*{modelVersion}">Name Error</p>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="Reset" class="btn btn-primary">Очистить</button>
+        </form>
+        <a th:href="@{/model/modelsensor}"><button class="btn btn-primary">Отмена</button></a>
+    </div>
+</body>
+</html>

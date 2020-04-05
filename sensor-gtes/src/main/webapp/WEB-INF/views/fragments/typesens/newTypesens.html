@@ -1,0 +1,40 @@
+<!--<!DOCTYPE HTML>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--<title>Getting Started: Handing Form Submission</title>-->
+<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Form</h1>-->
+<!--<form action="#" th:action="@{/country/saveCountry}" th:object="${country}" method="post">-->
+<!--&lt;!&ndash;<p>Id: <input type="text" th:field="*{idCountry}" /></p>&ndash;&gt;-->
+<!--<p>Message: <input type="text" th:field="*{countryName}" /></p>-->
+<!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="container">
+        <form class="form-horizontal" action="#" th:action="@{/typesens/saveTypesens}" th:object="${typesens}" name="input_form" id="input_form"
+              method="post" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" th:field="*{nameType}" placeholder="Enter name type." maxlength="50"/>
+                <p class="message" th:if="${#fields.hasErrors('nameType')}" th:errors="*{nameType}">Name Error</p>
+                <!--                <p><input type="submit" class="btn btn-primary" value="Submit" /> <input type="reset" class="btn btn-primary" value="Reset" /></p>-->
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="Reset" class="btn btn-primary">Очистить</button>
+        </form>
+        <a th:href="@{/typesens/typesens}"><button class="btn btn-primary">Отмена</button></a>
+    </div>
+</body>
+</html>

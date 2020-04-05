@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="archive">
+    <div class="row">
+        <form th:action="@{/archive/archives}">
+            <div class="form-group">
+                <div class="controls col-sm-2 ">
+                    <label class="control-label control-label-left col-sm-2"
+                           for="model">Установка</label>
+                    <select class="form-control" th:id="location" th:name="location">
+                        <option value="">--</option>
+                        <option th:each="locationList : ${locationList}"
+                                th:value="${locationList.idLocation}"
+                                th:utext="${locationList.nameLoc}"/>
+                    </select>
+                </div>
+                <div class="controls col-sm-2 ">
+                    <label class="control-label control-label-left col-sm-2"
+                           for="model">S/N:</label>
+                    <select class="form-control" th:id="number" th:name="number">
+                        <option value="">--</option>
+                        <option th:each="sensorList : ${listSensor}"
+                                th:value="${sensorList.idSensor}"
+                                th:utext="${sensorList.sensorNumb}"/>
+                    </select>
+<!--TODO:исправить,datalist не работает нормально, потомуч-то поиск по Id идет а не по номеру th:value=" ${numbers.idSensor}"-->
+<!--и если не выбрано из списка, то передается string ожидается Intrger-->
+<!--                    <label for="number">Поиск по s/n:</label>-->
+<!--                    <input list="number" name="number">-->
+<!--                    <datalist id="number">-->
+<!--                        <option th:each="numbers: ${listSensor}" th:text="${numbers.sensorNumb}"th:value=" ${numbers.idSensor}"></option>-->
+<!--                    </datalist>-->
+                </div>
+                <div class="controls col-sm-2 ">
+                    <label for="dateStart">Дата от:</label>
+                        <input th:type="date" class="form-control" th:id="dateStart" th:name="dateStart">
+                </div>
+                <div class="controls col-sm-2 ">
+                    <label for="dateStop">Дата до:</label>
+                    <input type="date" class="form-control" th:id="dateStop" th:name="dateStop">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label>Фильтр</label>
+                <button th:type="submit">Применить</button>
+                <a th:href="@{/archive/archives}"><button>Сбросить</button></a>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <form th:action="@{/archive/archives}">
+            <div class="form-group">
+                <div class="controls col-sm-2 ">
+                    <input type="hidden" id="location" name="location" th:value="${location}">
+                    <input type="hidden" id="number" name="number" th:value="${number}">
+                    <input type="hidden" id="dateStart" name="dateStart" th:value="${dateStart}">
+                    <input type="hidden" id="dateStop" name="dateStop" th:value="${dateStop}">
+                    <input type="hidden" id="report" name="report" th:value="true">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button th:type="submit">PDF</button>
+            </div>
+        </form>
+    </div>
+    <table  class="table table-bordered table-hover horizontal-align">
+        <!--<form th:action="@{/location/addFormLoc}">-->
+            <!--<button type="submit">Кнопка-ссылка</button>-->
+        <!--</form>-->
+        <thead>
+        <tr>
+            <th style="width: 5%">#</th>
+            <th style="width:20%">Установка</th>
+            <th style="width:70%">Средство измерения</th>
+            <th style="width:20%">Зав.номер</th>
+            <th style="width: 50%">Метрология</th>
+            <th style="width: 50%">Метрологический интервал</th>
+            <th style="width: 50%">Дата перемещения</th>
+            <th style="width: 50%">Примечание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="archive, iterStat : ${listArchive}" >
+<!--        <tr th:each="install, iterStat : ${listInstall.?[locationId==__${idLocation}__]}" >&lt;!&ndash;убрать сделать через dao&ndash;&gt;-->
+            <td th:text="${iterStat.count}"style="text-align: center">#</td><!-- порядковый номер НЕ ID-->
+            <td th:text="${archive.locationByLocationId.nameLoc}" style="text-align: center">Установка</td>
+            <td th:text="${archive.sensorBySensorId.modelSensorByModelId.typesensByTypesensId.nameType} +' '+ ${archive.sensorBySensorId.modelSensorByModelId.modelName} +' '+ ${archive.sensorBySensorId.modelSensorByModelId.modelVersion}"style="text-align: center">Средство измерения</td>
+            <td th:text="${archive.sensorBySensorId.sensorNumb}" style="text-align: center">Зав.номер</td>
+<!--            <td th:text="${install.sensorBySensorId.dateVerification}" style="text-align: center">Дата поверки</td>-->
+            <td th:text="${archive.sensorBySensorId.intervalVerification} == false? 'КАЛИБРОВКА'+' '+ ${archive.sensorBySensorId.dateVerification} :'ПОВЕРКА'+' '+ ${archive.sensorBySensorId.dateVerification}"   style="text-align: center">Метрология</td>
+            <td th:text="${archive.sensorBySensorId.intervalVerification}" style="text-align: center">Метрологический интервал</td>
+            <td th:text="${#temporals.format(archive.installDate,'dd-MM-yyyy HH:mm')}" style="text-align: center">Дата перемещения</td>
+            <td th:text="${archive.note}" style="text-align: center">Примечание</td>
+
+<!--            <td th:style="${install.sensorBySensorId.verification} == false?  'background: red' : 'background: green' "th:text="${install.sensorBySensorId.verification} == false? 'Калибровка' :'Поверка'" style="text-align: center">Поверка</td>-->
+<!--            <td style="text-align: center"><a th:href="@{/install/updateFormLocationInstall(idLocationInstall=${install.idLocationInstall})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>-->
+<!--            <td style="text-align: center"><a th:href="@{/install/delete(idLocationInstall=${install.idLocationInstall})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>-->
+    </tr>
+        </tbody>
+    </table>
+</div>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container">
+
+        <form class="form-horizontal" th:object="${firm}" th:action="@{/firm/saveFirm}" name="edit_form" id="edit_form"
+              method="post" role="form">
+            <div class="form-group">
+                <input type="hidden" idFirm="idFirm" th:name="idFirm" th:value="*{idFirm}"/>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" nameFirm="nameFirm" th:name="nameFirm" th:value="*{nameFirm}" maxlength="100"/>
+            </div>
+<!--            <div class="form-group">-->
+<!--                <div class="form-check">-->
+<!--                    <input class="form-check-input" type="checkbox" id="done" th:name="done" />-->
+<!--                    <label class="form-check-label" for="done">-->
+<!--                        Done?-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--            </div>-->
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a th:href="@{/firm/firms}"><button class="btn btn-primary">Отмена</button></a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="install">
+
+    <a th:href="@{/install/addFormInstall(idLocation=${idLocation})}"><button>New</button></a>
+    <div class="row">
+        <form th:action="@{/install/installs}">
+            <div class="form-group">
+                <div class="controls col-sm-2 ">
+                    <input type="hidden" id="idLocation" name="idLocation" th:value="${idLocation}">
+                    <input type="hidden" id="report" name="report" th:value="true">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button th:type="submit">PDF</button>
+            </div>
+        </form>
+    </div>
+    <h3 th:text= "'Список средств измерений на установке: '+${nameLocation}"/>
+    <table  class="table table-bordered table-hover horizontal-align">
+        <!--<form th:action="@{/location/addFormLoc}">-->
+            <!--<button type="submit">Кнопка-ссылка</button>-->
+        <!--</form>-->
+
+
+
+        <thead>
+            <th style="width: 5%">#</th>
+            <th style="width:20%">Установка</th>
+            <th style="width:70%">Средство измерения</th>
+            <th style="width:20%">Зав.номер</th>
+            <th style="width: 50%">Метрология</th>
+            <th style="width: 50%">МПИ</th>
+            <th style="width: 50%">Дата след. поверки</th>
+<!--            <th style="width: 50%">Поверка</th>-->
+            <th sec:authorize="hasRole('ADMIN')or hasRole('KIP')"style="width: 5%">Edit</th>
+            <th sec:authorize="hasRole('ADMIN')or hasRole('KIP')"style="width: 5%">Delete</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="install, iterStat : ${listInstall}" >
+<!--        <tr th:each="install, iterStat : ${listInstall.?[locationId==__${idLocation}__]}" >&lt;!&ndash;убрать сделать через dao&ndash;&gt;-->
+            <td th:text="${iterStat.count}"style="text-align: center">#</td><!-- порядковый номер НЕ ID-->
+            <td th:text="${install.locationByLocationId.nameLoc}" style="text-align: center">Установка</td>
+            <td th:text="${install.modelSensorByModelId.typesensByTypesensId.nameType} +' '+ ${install.modelSensorByModelId.modelName} +' '
+                            + ${install.modelSensorByModelId.modelVersion+' '+install.rangeMin+'...'+install.rangeMax+' '+install.unitByUnitId.unitName}"style="text-align: center">Средство измерения</td>
+            <td th:text="${install.sensorNumb}" style="text-align: center">Зав.номер</td>
+<!--            <td th:text="${install.sensorBySensorId.dateVerification}" style="text-align: center">Дата поверки</td>-->
+            <td th:text="${install.intervalVerification} == false? 'КАЛИБРОВКА'+' '+ ${install.dateVerification} :'ПОВЕРКА'+' '+ ${install.dateVerification}"   style="text-align: center">Метрология</td>
+            <td th:text="${install.intervalVerification}" style="text-align: center">МПИ</td>
+            <td th:text="${install.dateVerification.plusMonths(install.intervalVerification)}"
+                th:style="${install.dateVerification.plusMonths(install.intervalVerification+1).isBefore(localDateNow)}==true? 'background: yellow' : 'background: default' "
+                style="text-align: center">Дата след. поверки</td>
+<!--            <td th:style="${install.sensorBySensorId.verification} == false?  'background: red' : 'background: green' "th:text="${install.sensorBySensorId.verification} == false? 'Калибровка' :'Поверка'" style="text-align: center">Поверка</td>-->
+            <td sec:authorize="hasRole('ADMIN')or hasRole('KIP')"style="text-align: center"><a th:href="@{/install/updateFormLocationInstall(idSensor=${install.idSensor})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
+            <td sec:authorize="hasRole('ADMIN')or hasRole('KIP')"style="text-align: center"><a th:href="@{/install/delete(idSensor=${install.idSensor})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>

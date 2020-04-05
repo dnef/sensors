@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="eng"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div th:fragment="header">
+    <nav class="navbar-default navbar-fixed-top">
+        <div class="container" sec:authorize="isAuthenticated()">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/install/locationsSelect}" >Установки</a>
+                <a class="navbar-brand" sec:authorize="hasAnyRole('ADMIN','KIP')"th:href="@{/archive/archives}" >Перемещение</a>
+                <a class="navbar-brand" sec:authorize="hasAnyRole('ADMIN','KIP')" th:href="@{/disposal/viewDisposal}" >Архив</a>
+                <!--<a class="navbar-brand" th:href="@{/location/locations}">Location</a>-->
+                <ul class="nav navbar-nav">
+                <!--<ul class="nav navbar-nav">-->
+                    <!--<li><a href="#" th:href="@{/country/addFormCountry}">New</a></li>-->
+                    <li class="dropdown" sec:authorize="hasAnyRole('ADMIN','KIP')">
+                        <a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Справочники <span class="caret"></span></a>
+                        <!--class="dropdown-toggle" поменял на class="navbar-brand"-->
+                        <ul class="dropdown-menu">
+                            <li><a href="#" th:href="@{/country/countrys}" >Страны</a></li>
+                            <li><a href="#" th:href="@{/location/locations}" >Установки</a></li>
+                            <li><a href="#" th:href="@{/firm/firms}" >Фирма изготовитель</a></li>
+                            <li><a href="#" th:href="@{/typesens/typesens}">Тип сенсора</a></li>
+                            <li><a href="#" th:href="@{/model/modelsensor}">Модель</a></li>
+                            <li><a href="#" th:href="@{/unit/units}">Еденицы измерения</a></li>
+                            <li><a href="#" th:href="@{/sensor/sensors}">Сенсор</a></li>
+                            <!--<li><a href="#">Something else here</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a href="#">Separated link</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a href="#">One more separated link</a></li>-->
+                        </ul>
+                    </li>
+
+
+
+                </ul>
+                <a class="navbar-brand" sec:authorize="hasRole('ADMIN')" th:href="@{/user/users}" >Users</a>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  sec:authentication="name" th:text="Logout">Логин<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><p>Пользователь: <span sec:authentication="name"></span></p></li>
+                            <li><p>Доступ: <span sec:authentication="principal.authorities"></span></p></li>
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" value="Sign Out"/>
+<!--                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
+                            </form>
+                        </ul>
+                    </li>
+                </ul>
+
+<!--                <span sec:authorize="isAuthenticated()">Logged user:-->
+<!--                    <span sec:authentication="name"></span>Roles:-->
+<!--                    <span sec:authentication="principal.authorities"></span>-->
+<!--                <a class="nav-link" th:href="@{/logout}">Выход</a>-->
+<!--            </span>-->
+
+            </div>
+        </div>
+    </nav>
+</div>
+</html>

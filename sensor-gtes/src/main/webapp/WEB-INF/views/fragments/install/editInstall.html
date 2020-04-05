@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container">
+        <form class="form-horizontal" th:action="@{/install/saveInstall}"
+              method="post" role="form">
+            <div class="form-group">
+                <input type="hidden" th:id="idSensorOld" th:name="idSensorOld" th:value="*{idSensor}"/>
+                <input type="hidden" th:id="locationIdOld" th:name="locationIdOld" th:value="*{locationId}"/>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label control-label-left col-sm-3" for="locationId">Установка</label>
+                                <div class="controls col-sm-4">
+                                    <select class="form-control" th:name="locationId" th:id="locationId">
+                                        <option value="" th:disabled="disabled">--</option>
+                                        <option th:each="location : ${locations}"
+                                                th:value="${location.idLocation}"
+                                                th:utext="${location.nameLoc}"
+                                                th:selected="${location.idLocation == locationId}"/>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label control-label-left col-sm-3" for="firm">Датчик</label>
+                                <div class="controls col-sm-9">
+                                    <select class="form-control" th:name="idSensor" th:id="idSensor">
+                                        <option value="" th:disabled="disabled">--</option>
+                                        <option th:each="sensor : ${sensors}"
+                                                th:value="${sensor.idSensor}"
+                                                th:utext="${sensor.sensorNumb}+' '+${sensor.modelSensorByModelId.typesensByTypesensId.nameType} +' '+ ${sensor.modelSensorByModelId.modelName} +' '+ ${sensor.modelSensorByModelId.modelVersion}"
+                                                th:selected="${sensor.idSensor==idSensor}"/>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="Reset" class="btn btn-primary">Очистить</button>
+            </div>
+        </form>
+        <a th:href="@{/install/installs(idLocation=${locationId})}">
+            <button class="btn btn-primary">Отмена</button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

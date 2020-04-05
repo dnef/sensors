@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container">
+
+        <form class="form-horizontal" th:object="${sensor}" th:action="@{/sensor/saveSensor}" name="edit_form" id="edit_form"
+              method="post" role="form">
+            <div class="form-group">
+                <input type="hidden" idModel="idSensor" th:name="idSensor" th:value="*{idSensor}"/>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-3" for="model">model</label>
+                                    <div class="controls col-sm-9 ">
+                                        <select class="form-control" th:field="*{modelId}">
+<!--                                            <option value=""> &#45;&#45; </option>-->
+                                            <option th:each="modelSensor : ${modelSensorList}"
+                                                    th:value="${modelSensor.idModel}"
+                                                    th:utext="${modelSensor.typesensByTypesensId.nameType}+': '+${modelSensor.modelName}+' '+${modelSensor.modelVersion}"/>
+                                        </select>
+                                    </div></div>
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-3" for="locationId">Установка</label>
+                                    <div class="controls col-sm-9 ">
+                                        <select class="form-control" th:field="*{locationId}">
+                                            <option th:each="location : ${locationList}"
+                                                    th:value="${location.idLocation}"
+                                                    th:utext="${location.nameLoc}"/>
+                                        </select>
+                                    </div></div>
+                                <div class="row">
+                                    <div class="col-md-4 col-md-offset-2">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-4" for="unit">Ед.изм:</label>
+                                            <div class="controls col-sm-6">
+                                                <select class="form-control" th:field="*{unitId}">
+                                                    <option value=""> -- </option>
+                                                    <option th:each="unit : ${unitList}"
+                                                            th:value="${unit.idUnit}"
+                                                            th:utext="${unit.unitName}"/>
+                                                </select>
+                                            </div></div></div>
+
+                                    <div class="col-md-3 ">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="min">min</label>
+                                            <div class="controls col-sm-9">
+                                                <input name="min" type="text" class="form-control" data-role="numeric" data-format="integer" aria-disabled="false" aria-readonly="false" th:field="*{rangeMin}" maxlength="4"/>
+                                            </div></div></div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="max">max</label>
+                                            <div class="controls col-sm-9">
+                                                <input name="max" type="text" class="form-control" data-role="numeric" data-format="integer"aria-valuenow="" aria-disabled="false" aria-readonly="false" th:field="*{rangeMax}" maxlength="4"/>
+                                            </div></div></div></div>
+
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-3" for="country">Страна:</label>
+                                    <div class="controls col-sm-9">
+                                        <select class="form-control" th:field="*{countryId}">
+                                            <option value=""> -- </option>
+                                            <option th:each="country : ${countryList}"
+                                                    th:value="${country.idCountry}"
+                                                    th:utext="${country.countryName}"/>
+                                        </select>
+                                    </div></div>
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-3" for="firm">Фирма:</label>
+                                    <div class="controls col-sm-9">
+                                        <select class="form-control" th:field="*{firmId}">
+                                            <option value=""> -- </option>
+                                            <option th:each="firm : ${firmList}"
+                                                    th:value="${firm.idFirm}"
+                                                    th:utext="${firm.nameFirm}"/>
+                                        </select>
+
+                                    </div></div></div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-4" for="dateManuf">Дата производства:</label>
+                                    <div class="controls col-sm-4">
+                                        <input name="dateManuf" type="date" class="form-control" th:value="*{dateManufacture}"th:field = "*{dateManufacture}">
+                                    </div></div>
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-4" for="number">Заводской номер:</label>
+                                    <div class="controls col-sm-6">
+                                        <input name="number" type="text" class="form-control " th:field="*{sensorNumb}" placeholder="Заводской номер:" maxlength="50"/>
+                                        <p class="text-danger" th:if="${#fields.hasErrors('sensorNumb')}" th:errors="*{sensorNumb}">sensorNumb</p>
+                                    </div></div>
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-4" for="invent">Инвентарный номер:</label>
+                                    <div class="controls col-sm-6">
+                                        <input name="invent" type="text" class="form-control "th:field="*{inventoryNumb}" placeholder="Инвентарный(при наличии):" maxlength="50"/>
+                                    </div></div>
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-4">Паспорт в наличии</label>
+                                    <div class="controls col-sm-6">
+                                        <input type="checkbox" th:field="*{passport}">
+                                    </div></div>
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-4" for="firm">Метрология:</label>
+                                    <div class="controls col-sm-4">
+                                        <select class="form-control" th:field="*{verification}">
+                                            <option value=""> -- </option>
+                                            <option th:value="true">Поверка</option>
+                                            <option th:value="false">Калибровка</option>
+                                        </select>
+                                    </div></div>
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-4" for="dateverif">Дата поверки</label>
+                                    <div class="controls col-sm-4">
+                                        <input name="dateverif" type="date" class="form-control"  th:value="*{dateVerification}" th:field = "*{dateVerification}">
+                                    </div></div>
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-4" for="interval">Интервал поверки</label>
+                                    <div class="controls col-sm-3">
+                                        <input name="interval" type="text" class="form-control" aria-disabled="false" aria-readonly="false" th:field="*{intervalVerification}" maxlength="2" style="display: inline;"/>
+                                    </div>
+                                </div>
+
+                            </div></div></div></div>
+                <div class="row"><div class="col-md-12"><div class="form-group">
+                    <label class="control-label control-label-left col-sm-3" for="note">Дополнительная информация:</label>
+                    <div class="controls col-sm-9">
+
+                        <textarea id="note" rows="3" class="form-control" data-role="textarea" th:field="*{note}"></textarea></div>
+
+                </div>
+                    <div class="row"><div class="col-md-12">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-success">Сохранить</button>
+                            <button type="Reset" class="btn btn-primary">Очистить</button>
+                            <a class="btn btn-danger" th:href="@{/sensor/sensors}" role="button">Отмена</a></div>
+                    </div></div></div></div>
+
+
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('sensorNumb')}" >
+                    <nobr  >Номер сенсора</nobr>
+                    <nobr th:errors="*{sensorNumb}"></nobr>
+                </div>
+                <!--                <p class="alert alert-danger" th:if="${#fields.hasErrors('sensorNumb')}" th:errors="*{sensorNumb}">sensorNumb</p>-->
+                <p class="message" th:if="${#fields.hasErrors('inventoryNumb')}" th:errors="*{inventoryNumb}">inventoryNumb</p>
+
+                <p class="message" th:if="${#fields.hasErrors('modelId')}" th:errors="*{modelId}" >modelId</p>
+                <p class="message" th:if="${#fields.hasErrors('unitId')}" th:errors="*{unitId}">unitId</p>
+                <p class="message" th:if="${#fields.hasErrors('rangeMin')}" th:errors="*{rangeMin}">rangeMin</p>
+                <p class="message" th:if="${#fields.hasErrors('rangeMax')}" th:errors="*{rangeMax}">rangeMax</p>
+                <p class="message" th:if="${#fields.hasErrors('countryId')}" th:errors="*{countryId}">countryId</p>
+                <p class="message" th:if="${#fields.hasErrors('firmId')}" th:errors="*{firmId}">firmId</p>
+                <p class="message" th:if="${#fields.hasErrors('dataManufacture')}" th:errors="*{dataManufacture}">dataManufacture</p>
+                <p class="message" th:if="${#fields.hasErrors('dateVerification')}" th:errors="*{dateVerification}">dateVerification</p>
+                <p class="message" th:if="${#fields.hasErrors('intervalVerification')}" th:errors="*{intervalVerification}">intervalVerification</p>
+                <p class="message" th:if="${#fields.hasErrors('verification')}" th:errors="*{verification}">verification</p>
+                <p class="message" th:if="${#fields.hasErrors('passport')}" th:errors="*{passport}">passport</p>
+                <!--                <p class="message" th:if="${#fields.hasErrors('note')}" th:errors="*{note}">note</p>-->
+
+
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

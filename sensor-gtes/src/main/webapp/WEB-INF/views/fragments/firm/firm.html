@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="firm">
+    <table class="table table-bordered table-hover horizontal-align">
+        <a th:href="@{/firm/addFormFirm}"><button>New</button></a>
+        <thead>
+        <tr>
+            <th style="width: 5%">#</th>
+            <th style="width: 50%">Firm</th>
+            <th style="width: 5%">Edit</th>
+            <th style="width: 5%">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="firm, iterStat : ${listFirm}">
+            <td th:text="${iterStat.count}"style="text-align: center">#</td><!-- порядковый номер НЕ ID-->
+            <!--<td th:text="${country.idCountry}" style="text-align: center">ID</td>-->
+            <td th:text="${firm.nameFirm}" style="text-align: center">Firm</td>
+            <td style="text-align: center"><a th:href="@{/firm/updateFormFirm(idFirm=${firm.idFirm})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
+            <td style="text-align: center"><a th:href="@{/firm/delete(idFirm=${firm.idFirm})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>

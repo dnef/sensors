@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container">
+
+        <form class="form-horizontal" th:object="${modelsensor}" th:action="@{/model/saveModelSensor}" name="edit_form" id="edit_form"
+              method="post" role="form">
+            <div class="form-group">
+                <input type="hidden" idModel="idModel" th:name="idModel" th:value="*{idModel}"/>
+            </div>
+            <div class="form-group">
+                <tr>
+                    <td>Select:</td>
+                    <td>
+                        <select th:field="${modelsensor.typesensId}">
+                            <option value=""> -- </option>
+                            <option th:each="typesens : ${typesensList}"
+                                    th:value="${typesens.idTypesens}"
+                                    th:utext="${typesens.nameType}"/>
+                        </select>
+
+                    </td>
+                </tr>
+<!--                <input type="hidden" idTypesens="idTypesens" th:name="idTypesens" th:value = "idSelect"/>-->
+                <input type="text" class="form-control" modelName="modelName" th:name="modelName" th:value="*{modelName}" maxlength="100"/>
+                <input type="text" class="form-control" modelVersion="modelVersion" th:name="modelVersion" th:value="*{modelVersion}" maxlength="100"/>
+
+<!--                <input type="text" class="form-control" idTypesens="modelVersion" th:name="modelVersion" th:value="*{modelVersion}" maxlength="100"/>-->
+
+            </div>
+            <div class="form-group">
+
+            </div>
+<!--            <div class="form-group">-->
+<!--                <div class="form-check">-->
+<!--                    <input class="form-check-input" type="checkbox" id="done" th:name="done" />-->
+<!--                    <label class="form-check-label" for="done">-->
+<!--                        Done?-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--            </div>-->
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a th:href="@{/model/modelsensor}"><button class="btn btn-primary">Отмена</button></a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

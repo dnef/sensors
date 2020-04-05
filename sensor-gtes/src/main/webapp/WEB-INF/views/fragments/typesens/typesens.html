@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="typesens">
+    <table class="table table-bordered table-hover horizontal-align">
+        <a th:href="@{/typesens/addFormTypesens}"><button>New</button></a>
+        <thead>
+        <tr>
+            <th style="width: 5%">#</th>
+            <th style="width: 50%">Typesens</th>
+            <th style="width: 5%">Edit</th>
+            <th style="width: 5%">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="typesens, iterStat : ${listTypesens}">
+            <td th:text="${iterStat.count}"style="text-align: center">#</td><!-- порядковый номер НЕ ID-->
+            <!--<td th:text="${country.idCountry}" style="text-align: center">ID</td>-->
+            <td th:text="${typesens.nameType}" style="text-align: center">Typesens</td>
+            <td style="text-align: center"><a th:href="@{/typesens/updateFormTypesens(idTypesens=${typesens.idTypesens})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
+            <td style="text-align: center"><a th:href="@{/typesens/delete(idTypesens=${typesens.idTypesens})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>
