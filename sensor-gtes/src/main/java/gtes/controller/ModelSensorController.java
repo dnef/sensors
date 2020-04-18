@@ -42,8 +42,8 @@ public class ModelSensorController {
     @GetMapping("/modelsensor")
     public String listModelSensor (Model model){
         model.addAttribute("listModelSensor",this.modelSensorService.findAll());
-        model.addAttribute("template","model");
-        return "index";
+//        model.addAttribute("template","model");
+        return "fragments/model/model";
     }
     @GetMapping("/addFormModel")
     public String formAdd (Model model){

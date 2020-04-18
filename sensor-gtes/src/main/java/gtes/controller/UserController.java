@@ -10,7 +10,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,8 +25,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserProfileService userProfileService;
-    @Autowired
-    private PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
+
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
     @Autowired
@@ -43,10 +41,7 @@ public class UserController {
         this.userProfileService = userProfileService;
     }
 
-    @Qualifier("PersistentTokenBasedRememberMeServices")
-    public void setPersistentTokenBasedRememberMeServices(PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices) {
-        this.persistentTokenBasedRememberMeServices = persistentTokenBasedRememberMeServices;
-    }
+
 
     private String getPrincipal(){
         String userName = null;
@@ -65,7 +60,7 @@ public class UserController {
         model.addAttribute("listUser", this.userService.findAllUsers());
 //        model.addAttribute("loggedinuser",getPrincipal());
         model.addAttribute("template", "user");
-        return "index";
+        return "fragments/user/user";
     }
 
     @GetMapping("/addFormUser")
@@ -127,4 +122,5 @@ public class UserController {
     public List<UserProfile> initializeProfiles(){
         return userProfileService.findAll();
     }
+
 }

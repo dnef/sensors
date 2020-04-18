@@ -29,7 +29,7 @@ public class FirmController {
         model.addAttribute("listFirm",this.firmService.findAll());
         model.addAttribute("template","firm");
 //        return "firm";
-        return "index";
+        return "fragments/firm/firm";
     }
     @GetMapping("/addFormFirm")
     public String formAdd(Model model){

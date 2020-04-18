@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="firm">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Фирма изготовитель СИ</title>
+</head>
+<!--<div th:fragment="firm">-->
+<div layout:fragment="content">
+    <div class="container" style="max-width: 50%">
     <table class="table table-bordered table-hover horizontal-align">
-        <a th:href="@{/firm/addFormFirm}"><button>New</button></a>
+        <a th:href="@{/firm/addFormFirm}"><button>Добавить</button></a>
         <thead>
         <tr>
             <th style="width: 5%">#</th>
@@ -23,5 +30,6 @@
         </tr>
         </tbody>
     </table>
+    </div>
 </div>
 </html>

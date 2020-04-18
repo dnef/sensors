@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body>
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{fragments/layout}">
+<head>
+    <title>Denied</title>
+</head>
+<div layout:fragment="content">
 <div class="container">
-    <div th:replace="fragments/header :: header"></div>
-    <div th:replace="fragments/security/error403 :: error403"></div>
-    <div th:replace="fragments/footer :: footer"></div>
+    <div class="starter-template">
+        <h1>403 - Access is denied</h1>
+        <div th:inline="text"><span>Пользователь '[[${#httpServletRequest.remoteUser}]]',
+            доступ к этой странице(действию) Вам не разрешен.</span></div>
+    </div>
 </div>
-</body>
+</div>
 </html>

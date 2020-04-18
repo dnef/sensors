@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="install">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<!--<div th:fragment="install">-->
+<head>
+    <title th:utext="'Установка: ' +${nameLocation}"></title>
+</head>
+<div layout:fragment="content">
 
-    <a th:href="@{/install/addFormInstall(idLocation=${idLocation})}"><button>New</button></a>
     <div class="row">
-        <form th:action="@{/install/installs}">
-            <div class="form-group">
-                <div class="controls col-sm-2 ">
-                    <input type="hidden" id="idLocation" name="idLocation" th:value="${idLocation}">
-                    <input type="hidden" id="report" name="report" th:value="true">
+    <h3 class="col-md-8" style="margin-top: 2%" th:text= "'Список средств измерений на установке: '+${nameLocation}"/>
+            <form th:action="@{/install/installs}">
+                <div class="form-group">
+                    <div class="controls">
+                        <input type="hidden" id="idLocation" name="idLocation" th:value="${idLocation}">
+                        <input type="hidden" id="report" name="report" th:value="true">
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-4">
-                <button th:type="submit">PDF</button>
-            </div>
-        </form>
+                <div class="col-md-2" style="margin-top: 1%">
+                    <button th:type="submit">Сохранить в PDF</button>
+                </div>
+            </form>
+    <a class="col-md-2" style="margin-top: 1%" th:href="@{/install/addFormInstall(idLocation=${idLocation})}"><button>Добавить СИ в установку</button></a>
     </div>
-    <h3 th:text= "'Список средств измерений на установке: '+${nameLocation}"/>
     <table  class="table table-bordered table-hover horizontal-align">
         <!--<form th:action="@{/location/addFormLoc}">-->
             <!--<button type="submit">Кнопка-ссылка</button>-->
         <!--</form>-->
-
-
-
         <thead>
-            <th style="width: 5%">#</th>
-            <th style="width:20%">Установка</th>
-            <th style="width:70%">Средство измерения</th>
-            <th style="width:20%">Зав.номер</th>
-            <th style="width: 50%">Метрология</th>
-            <th style="width: 50%">МПИ</th>
-            <th style="width: 50%">Дата след. поверки</th>
+            <th style="width: 2%">#</th>
+            <th style="width:15%">Установка</th>
+            <th style="width:30%">Средство измерения</th>
+            <th style="width:15%">Зав.номер</th>
+            <th style="width: 15%">Метрология</th>
+            <th style="width: 3%">МПИ</th>
+            <th style="width: 10%">Дата след. поверки</th>
 <!--            <th style="width: 50%">Поверка</th>-->
-            <th sec:authorize="hasRole('ADMIN')or hasRole('KIP')"style="width: 5%">Edit</th>
+            <th sec:authorize="hasRole('ADMIN')"style="width: 5%">Edit</th>
             <th sec:authorize="hasRole('ADMIN')or hasRole('KIP')"style="width: 5%">Delete</th>
 
         </tr>

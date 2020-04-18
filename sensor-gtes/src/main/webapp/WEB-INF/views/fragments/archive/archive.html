@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="archive">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<!--<div th:fragment="archiveTitle">-->
+<!--    <title>Журнал перемещений СИ КИП</title>-->
+<!--</div>-->
+<head>
+    <title>Журнал перемещений СИ</title>
+</head>
+<!--<div th:fragment="archive">-->
+<div layout:fragment="content">
     <div class="row">
         <form th:action="@{/archive/archives}">
             <div class="form-group">
@@ -60,8 +69,8 @@
                     <input type="hidden" id="report" name="report" th:value="true">
                 </div>
             </div>
-            <div class="col-sm-4">
-                <button th:type="submit">PDF</button>
+            <div class="col-sm-2">
+                <button th:type="submit">Сохранить в PDF</button>
             </div>
         </form>
     </div>
@@ -71,14 +80,15 @@
         <!--</form>-->
         <thead>
         <tr>
-            <th style="width: 5%">#</th>
-            <th style="width:20%">Установка</th>
-            <th style="width:70%">Средство измерения</th>
-            <th style="width:20%">Зав.номер</th>
-            <th style="width: 50%">Метрология</th>
-            <th style="width: 50%">Метрологический интервал</th>
-            <th style="width: 50%">Дата перемещения</th>
-            <th style="width: 50%">Примечание</th>
+            <th style="width: 2%">#</th>
+            <th style="width:13%">Установка</th>
+            <th style="width:25%">Средство измерения</th>
+            <th style="width:10%">Зав.номер</th>
+            <th style="width:7%">Метрология</th>
+            <th style="width: 3%">МПИ</th>
+            <th style="width: 10%">Дата перемещения</th>
+            <th style="width: 22%">Примечание</th>
+            <th sec:authorize="hasRole('DBA')" style="width: 3%">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -88,15 +98,11 @@
             <td th:text="${archive.locationByLocationId.nameLoc}" style="text-align: center">Установка</td>
             <td th:text="${archive.sensorBySensorId.modelSensorByModelId.typesensByTypesensId.nameType} +' '+ ${archive.sensorBySensorId.modelSensorByModelId.modelName} +' '+ ${archive.sensorBySensorId.modelSensorByModelId.modelVersion}"style="text-align: center">Средство измерения</td>
             <td th:text="${archive.sensorBySensorId.sensorNumb}" style="text-align: center">Зав.номер</td>
-<!--            <td th:text="${install.sensorBySensorId.dateVerification}" style="text-align: center">Дата поверки</td>-->
             <td th:text="${archive.sensorBySensorId.intervalVerification} == false? 'КАЛИБРОВКА'+' '+ ${archive.sensorBySensorId.dateVerification} :'ПОВЕРКА'+' '+ ${archive.sensorBySensorId.dateVerification}"   style="text-align: center">Метрология</td>
             <td th:text="${archive.sensorBySensorId.intervalVerification}" style="text-align: center">Метрологический интервал</td>
             <td th:text="${#temporals.format(archive.installDate,'dd-MM-yyyy HH:mm')}" style="text-align: center">Дата перемещения</td>
             <td th:text="${archive.note}" style="text-align: center">Примечание</td>
-
-<!--            <td th:style="${install.sensorBySensorId.verification} == false?  'background: red' : 'background: green' "th:text="${install.sensorBySensorId.verification} == false? 'Калибровка' :'Поверка'" style="text-align: center">Поверка</td>-->
-<!--            <td style="text-align: center"><a th:href="@{/install/updateFormLocationInstall(idLocationInstall=${install.idLocationInstall})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>-->
-<!--            <td style="text-align: center"><a th:href="@{/install/delete(idLocationInstall=${install.idLocationInstall})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>-->
+            <td sec:authorize="hasRole('DBA')" style="text-align: center"><a th:href="@{/archive/delete(idArchive=${archive.idArchive})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
     </tr>
         </tbody>
     </table>

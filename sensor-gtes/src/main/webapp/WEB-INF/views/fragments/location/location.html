@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="location">
-    <a th:href="@{/location/addFormLoc}"><button>New</button></a>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Установки/площадки</title>
+</head>
+<!--<div th:fragment="location">-->
+<div layout:fragment="content">
+    <div class="container" style="max-width: 50%">
+    <h3>Список установок/площадок</h3>
+    <a th:href="@{/location/addFormLoc}"><button>Создать установку</button></a>
     <!--<form th:action="@{/location/addFormLoc}">-->
     <!--<button type="submit">Кнопка-ссылка</button>-->
     <!--</form>-->
@@ -31,5 +39,6 @@
         </tr>
         </tbody>
     </table>
+    </div>
 </div>
 </html>

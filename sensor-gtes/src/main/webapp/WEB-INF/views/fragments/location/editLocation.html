@@ -1,38 +1,60 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body>
-<div class="container">
-    <div th:replace="fragments/header :: header"></div>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Редактировать установку/площадку</title>
+</head>
+<!--<head th:replace="fragments/head :: head"></head>-->
+<!--<body>-->
+<div layout:fragment="content">
     <div class="container">
-        <form class="form-horizontal" th:object="${location}" th:action="@{/location/saveLocation}" name="edit_form" id="edit_form"
-              method="post" role="form">
-            <div class="form-group">
-                <input type="hidden" idLocation="idLocation" th:name="idLocation" th:value="*{idLocation}"/>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="nameLoc" th:name="nameLoc" th:value="*{nameLoc}" maxlength="50"/>
-                <input type="text" class="form-control" id="serNumber" th:name="serNumber" th:value="*{serNumber}" maxlength="50"/>
-                <input type="text" class="form-control" id="invNumber" th:name="invNumber" th:value="*{invNumber}" maxlength="50"/>
-                <!--<input type="text" class="form-control" idLocation="workLoc" th:name="workLoc" th:value="*{workLoc}" maxlength="1"/>-->
-
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <!--<input class="form-check-input" type="checkbox" id="done" th:name="done" />-->
-                    <input class="form-check-input" type="checkbox" id="work" th:field="*{workLoc}" value="true"/>
-                    <!--<input class="form-check-input" type="checkbox" th:field="*{workLoc}" value="false"/>-->
-                    <label class="form-check-label" for="work">
-                        В работе?
-                    </label>
+        <!--    <div th:replace="fragments/header :: header"></div>-->
+        <h3 th:utext="'Редактирование установка: '+${location.nameLoc}"/>
+        <div class="container">
+            <form class="form-horizontal" th:object="${location}" th:action="@{/location/saveLocation}" name="edit_form"
+                  id="edit_form"
+                  method="post" role="form">
+                <div class="form-group">
+                    <input type="hidden" idLocation="idLocation" th:name="idLocation" th:value="*{idLocation}"/>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-            <a th:href="@{/location/locations}"><button class="btn btn-primary">Отмена</button></a>
-        </form>
+                <div class="form-group col-sm-4">
+                    <label class="form-check-label" for="nameLoc">Название установки</label>
+                    <input type="text" class="form-control" id="nameLoc" th:name="nameLoc" th:value="*{nameLoc}"
+                           placeholder="Enter your location." maxlength="50"/>
+                    <label class="form-check-label" for="serNumber">Заводской номер</label>
+                    <input type="text" class="form-control" id="serNumber" th:name="serNumber" th:value="*{serNumber}"
+                           placeholder="Enter your serial number." maxlength="50"/>
+                    <label class="form-check-label" for="invNumber">Инвентарный номер</label>
+                    <input type="text" class="form-control" id="invNumber" th:name="invNumber" th:value="*{invNumber}"
+                           placeholder="Enter your inventory number." maxlength="50"/>
+
+                    <!--<input type="text" class="form-control" idLocation="workLoc" th:name="workLoc" th:value="*{workLoc}" maxlength="1"/>-->
+                    <!--            <div class="form-group">-->
+                    <div class="form-check col-sm-4">
+                        <!--<input class="form-check-input" type="checkbox" id="done" th:name="done" />-->
+                        <input class="form-check-input" type="checkbox" id="work" th:field="*{workLoc}" value="true"/>
+                        <!--<input class="form-check-input" type="checkbox" th:field="*{workLoc}" value="false"/>-->
+                        <label class="form-check-label" for="work">
+                            В работе.
+                        </label>
+                    </div>
+                    <!--            </div>-->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-success">Сохранить</button>
+                            <button type="Reset" class="btn btn-primary">Очистить</button>
+                            <a class="btn btn-danger" th:href="@{/location/locations}" role="button">Отмена</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-</body>
+<!--</body>-->
 </html>

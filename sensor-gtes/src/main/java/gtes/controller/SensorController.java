@@ -4,6 +4,8 @@ import com.google.common.collect.HashMultimap;
 import gtes.entity.*;
 import gtes.report.PdfSensorView;
 import gtes.service.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
@@ -25,6 +27,7 @@ import java.util.List;
 @SessionAttributes("hasFilter")
 @RequestMapping("/sensor")
 public class SensorController {
+    static final Logger logger = LogManager.getLogger(SensorController.class.getName());
     @Autowired
     private SensorService sensorService;
     @Autowired
@@ -230,7 +233,7 @@ public class SensorController {
         model.addAttribute("headerFilter", sb.toString());
         //Альтернативный метод построения заголовка для фильтра
 //            model.addAttribute("headerNameFilter",createHeaderFilter(filterHashMap));
-        return "index";
+        return "fragments/sensor/sensor";
     }
 
     @GetMapping("/report")
@@ -242,7 +245,7 @@ public class SensorController {
         model.addAttribute("headerFilter", filterHashMap.get("headerFilter"));
         return new ModelAndView(new PdfSensorView(), "modelPdf", model);
     }
-
+    @Secured({"ROLE_ADMIN","ROLE_KIP"})
     @GetMapping("addFormSensor")
     public String addForm(Model model) {
         Sensor sensor = new Sensor();
@@ -257,6 +260,7 @@ public class SensorController {
     }
 
     //TODO: При сохранении писать в архив как в LocationInstallController
+    @Secured({"ROLE_ADMIN","ROLE_KIP"})
     @PostMapping("/saveSensor")
     public String saveSensor(@Valid @ModelAttribute("sensor") Sensor theSensor, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -344,7 +348,7 @@ public class SensorController {
         }
     }
 
-
+    @Secured({"ROLE_ADMIN","ROLE_KIP"})
     @RequestMapping("/updateFormSensor")
     public String editModel(@RequestParam("idSensor") int idSensor, Model model) {
         Sensor sensor = this.sensorService.findOne(idSensor);

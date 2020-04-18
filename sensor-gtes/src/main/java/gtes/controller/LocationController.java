@@ -26,7 +26,7 @@ public class LocationController {
     public String listLocation(Model model){
         model.addAttribute("listLocation", this.locationService.findAll());
         model.addAttribute("template","location");
-        return "index";
+        return "fragments/location/location";
 
     }
     @GetMapping("/addFormLoc")

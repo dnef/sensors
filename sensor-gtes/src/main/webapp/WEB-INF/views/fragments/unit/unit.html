@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="unit">
-    <table style="width:100%" class="table table-bordered table-hover horizontal-align">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Еденицы измерения СИ</title>
+</head>
+    <div layout:fragment="content">
+        <div class="container" style="max-width: 50%">
+            <h4>Единицы измерений СИ</h4>
+    <table style="width:100%" class="table table-bordered table-hover horizontal-align table-responsive">
         <a th:href="@{/unit/addFormUnit}"><button>New</button></a>
         <thead>
         <tr>

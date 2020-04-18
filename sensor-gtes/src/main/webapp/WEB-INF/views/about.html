@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{fragments/layout}">
+<head>
+    <title>Описание</title>
+</head>
+<div layout:fragment="content">
+<div class="container">
+<h4>Описание</h4>
+    <div th:inline="text"><span>Привет '[[${#httpServletRequest.remoteUser}]]'</span></div>
+    <p>Бла бла</p>
+</div>
+</div>
+</html>

@@ -143,7 +143,7 @@ public class LocationInstallController {
         if (report) {
             return new ModelAndView(new PdfInstallLocationView(), "installList", listInstall);
         } else {
-            return "index";
+            return "fragments/install/install";
         }
     }
 
@@ -221,10 +221,11 @@ public class LocationInstallController {
         return "redirect:/install/installs?idLocation=" + changeLocation;
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_KIP"})
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping("/updateFormLocationInstall")
     public String editModel(@RequestParam("idSensor") int idSensorMoving, Model model) {
         Sensor sensor = sensorService.findOne(idSensorMoving);
+        model.addAttribute("sensor",sensor);
         model.addAttribute("idSensor", sensor.getIdSensor());
         model.addAttribute("locationId", sensor.getLocationId());
         model.addAttribute("locations", getLocations());

@@ -64,6 +64,7 @@ public class MVCConfig implements WebMvcConfigurer {
         templateEngine.addDialect(new SpringSecurityDialect());
         templateEngine.setEnableSpringELCompiler(true);
         templateEngine.addDialect(new Java8TimeDialect());
+        templateEngine.addDialect(new LayoutDialect());
         return templateEngine;
     }
     @Bean

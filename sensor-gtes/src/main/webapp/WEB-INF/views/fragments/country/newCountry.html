@@ -1,27 +1,17 @@
-<!--<!DOCTYPE HTML>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-    <!--<title>Getting Started: Handing Form Submission</title>-->
-    <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Form</h1>-->
-<!--<form action="#" th:action="@{/country/saveCountry}" th:object="${country}" method="post">-->
-    <!--&lt;!&ndash;<p>Id: <input type="text" th:field="*{idCountry}" /></p>&ndash;&gt;-->
-    <!--<p>Message: <input type="text" th:field="*{countryName}" /></p>-->
-    <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body>
-<div class="container">
-    <div th:replace="fragments/header :: header"></div>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Добавить cтраны производства СИ</title>
+</head>
+<!--<head th:replace="fragments/head :: head"></head>-->
+<!--<body>-->
+<div layout:fragment="content">
+<!--<div class="container">-->
+<!--    <div th:replace="fragments/header :: header"></div>-->
     <div class="container">
         <form class="form-horizontal" action="#" th:action="@{/country/saveCountry}" th:object="${country}" name="input_form" id="input_form"
               method="post" role="form">
@@ -30,10 +20,16 @@
                 <p class="message" th:if="${#fields.hasErrors('countryName')}" th:errors="*{countryName}">Name Error</p>
             <!--<button type="submit" class="btn btn-primary">Submit</button>-->
             </div>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-            <button type="Reset" class="btn btn-primary">Очистить</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                         <button type="Reset" class="btn btn-primary">Очистить</button>
+                        <a class="btn btn-danger" th:href="@{/country/countrys}" role="button">Отмена</a>
+                    </div>
+                </div>
+            </div>
         </form>
-        <a th:href="@{/country/countrys}"><button class="btn btn-primary">Отмена</button></a>
     </div>
 </div>
 </body>

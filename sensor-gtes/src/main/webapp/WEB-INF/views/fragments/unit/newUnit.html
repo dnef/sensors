@@ -2,26 +2,32 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
-<!--    <meta charset="UTF-8">-->
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{fragments/layout}">
+<head>
+    <title>Добавить единицу измерения СИ</title>
 </head>
-<body>
-<div class="container">
-    <div th:replace="fragments/header :: header"></div>
-
+<div layout:fragment="content">
     <div class="container">
+        <h4>Добавить единицу измерения СИ</h4>
         <form class="form-horizontal" action="#" th:action="@{/unit/saveUnit}" th:object="${unit}" name="input_form" id="input_form"
               method="post" role="form">
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <input style="width:50%" type="text" class="form-control" th:field="*{unitName}" placeholder="Enter name unit." maxlength="50"/>
-                <p class="message" th:if="${#fields.hasErrors('unitName')}" th:errors="*{unitName}">Name Error</p>
+                <p class="message" th:if="${#fields.hasErrors('unitName')}" th:errors="*{unitName}">Unit Error</p>
                 <!--                <p><input type="submit" class="btn btn-primary" value="Submit" /> <input type="reset" class="btn btn-primary" value="Reset" /></p>-->
             </div>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-            <button type="Reset" class="btn btn-primary">Очистить</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                        <a class="btn btn-danger" th:href="@{/unit/units}" role="button">Отмена</a>
+                    </div>
+                </div>
+            </div>
         </form>
-        <a th:href="@{/unit/units}"><button class="btn btn-primary">Отмена</button></a>
     </div>
-</body>
+</div>
+<!--</body>-->
 </html>

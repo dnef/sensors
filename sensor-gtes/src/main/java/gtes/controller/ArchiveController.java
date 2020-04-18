@@ -1,7 +1,6 @@
 package gtes.controller;
 
 
-import gtes.dao.impl.UserDAOImpl;
 import gtes.entity.Archive;
 import gtes.entity.Location;
 import gtes.report.PdfArchiveView;
@@ -12,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -98,8 +98,14 @@ public class ArchiveController {
         if (report) {
             return new ModelAndView(new PdfArchiveView(), "archiveList", listArchive);
         } else {
-            return "index";
+            return "fragments/archive/archive";
         }
+    }
+    @GetMapping("/delete")
+    @Secured({"ROLE_DBA"})
+    public String remove(@RequestParam("idArchive") int idArchive) {
+        this.archiveService.deleteById(idArchive);
+        return "redirect:/disposal/viewDisposal";
     }
 
 

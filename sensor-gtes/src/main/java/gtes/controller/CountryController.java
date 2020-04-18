@@ -30,7 +30,7 @@ public class CountryController {
 //        model.addAttribute("country", new Country());
         model.addAttribute("listCountry",this.countryService.findAll());
         model.addAttribute("template","country");
-        return "index";
+        return "fragments/country/country";
     }
 
     @GetMapping("/addFormCountry")

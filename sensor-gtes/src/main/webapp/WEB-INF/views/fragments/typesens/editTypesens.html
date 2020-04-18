@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body>
-<div class="container">
-    <div th:replace="fragments/header :: header"></div>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Редактировать тип СИ</title>
+</head>
+    <div layout:fragment="content">
     <div class="container">
-
+<h3>Редактировать тип СИ</h3>
         <form class="form-horizontal" th:object="${typesens}" th:action="@{/typesens/saveTypesens}" name="edit_form" id="edit_form"
               method="post" role="form">
             <div class="form-group">
                 <input type="hidden" idCountry="idTypesens" th:name="idTypesens" th:value="*{idTypesens}"/>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <input type="text" class="form-control" idTypesens="idTypesens" th:name="nameType" th:value="*{nameType}" maxlength="100"/>
             </div>
-<!--            <div class="form-group">-->
-<!--                <div class="form-check">-->
-<!--                    <input class="form-check-input" type="checkbox" id="done" th:name="done" />-->
-<!--                    <label class="form-check-label" for="done">-->
-<!--                        Done?-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--            </div>-->
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-            <a th:href="@{/typesens/typesens}"><button class="btn btn-primary">Отмена</button></a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                        <!--                        <button type="Reset" class="btn btn-primary">Очистить</button>-->
+                        <a class="btn btn-danger" th:href="@{/typesens/typesens}" role="button">Отмена</a>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
-</body>
+</div>
+<!--</body>-->
 </html>

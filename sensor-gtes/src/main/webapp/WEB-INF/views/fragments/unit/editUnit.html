@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
-<!--    <meta charset="UTF-8">-->
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{fragments/layout}">
+<head>
+    <title>Редатировать единицу измерения СИ</title>
 </head>
-<body>
-<div class="container">
-    <div th:replace="fragments/header :: header"></div>
+<div layout:fragment="content">
     <div class="container">
+        <h3>Редатировать единицу измерения СИ</h3>
         <form class="form-horizontal" th:object="${unit}" th:action="@{/unit/saveUnit}" name="edit_form" id="edit_form"
               method="post" role="form">
             <div class="form-group">
                 <input type="hidden" idUnit="idUnit" th:name="idUnit" th:value="*{idUnit}"/>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <input style="width:50%" type="text" class="form-control" unitName="unitName" th:name="unitName" th:value="*{unitName}" maxlength="100"/>
             </div>
-
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-            <a th:href="@{/country/countrys}"><button class="btn btn-primary">Отмена</button></a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                        <button type="Reset" class="btn btn-primary">Очистить</button>
+                        <a class="btn btn-danger" th:href="@{/unit/units}" role="button">Отмена</a>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
-</body>
+<!--</body>-->
 </html>

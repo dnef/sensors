@@ -51,12 +51,12 @@ public class DisposalController {
         if (report) {
             return new ModelAndView(new PdfDisposalView(), "disposalList", listDisposal);
         } else {
-            return "index";
+            return "fragments/disposal/disposal";
         }
     }
 
     @GetMapping("/delete")
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_DBA"})
     public String remove(@RequestParam("idDisposal") int idDisposal) {
         this.disposalService.deleteById(idDisposal);
         return "redirect:/disposal/viewDisposal";

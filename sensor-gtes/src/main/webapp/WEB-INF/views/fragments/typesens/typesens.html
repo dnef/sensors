@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="typesens">
-    <table class="table table-bordered table-hover horizontal-align">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Тип СИ</title>
+</head>
+<!--<div th:fragment="typesens">-->
+<div layout:fragment="content">
+    <div class="container" style="max-width: 50%">
+        <h4>Типы средств измерения</h4>
+    <table class="table table-bordered table-hover horizontal-align table-responsive">
         <a th:href="@{/typesens/addFormTypesens}"><button>New</button></a>
         <thead>
         <tr>
-            <th style="width: 5%">#</th>
-            <th style="width: 50%">Typesens</th>
-            <th style="width: 5%">Edit</th>
-            <th style="width: 5%">Delete</th>
+            <th style="width: 2%">#</th>
+            <th style="width: 80%">Тип СИ</th>
+            <th style="width: 4%">Edit</th>
+            <th style="width: 4%">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -23,5 +31,6 @@
         </tr>
         </tbody>
     </table>
+</div>
 </div>
 </html>

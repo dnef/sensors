@@ -25,8 +25,8 @@ public class TypesensController {
     @GetMapping("/typesens")
     public String listTypesens (Model model){
         model.addAttribute("listTypesens",this.typesensService.findAll());
-        model.addAttribute("template","typesens");
-        return "index";
+//        model.addAttribute("template","typesens");
+        return "fragments/typesens/typesens";
     }
     @GetMapping("/addFormTypesens")
     public String formAdd(Model model){

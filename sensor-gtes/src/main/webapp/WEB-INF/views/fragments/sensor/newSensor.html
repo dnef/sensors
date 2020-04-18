@@ -1,33 +1,22 @@
-<!--<!DOCTYPE HTML>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--<title>Getting Started: Handing Form Submission</title>-->
-<!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Form</h1>-->
-<!--<form action="#" th:action="@{/country/saveCountry}" th:object="${country}" method="post">-->
-<!--&lt;!&ndash;<p>Id: <input type="text" th:field="*{idCountry}" /></p>&ndash;&gt;-->
-<!--<p>Message: <input type="text" th:field="*{countryName}" /></p>-->
-<!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body>
-<div class="container">
-    <div th:replace="fragments/header :: header"></div>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Добавить СИ</title>
+</head>
+<!--<head th:replace="fragments/head :: head"></head>-->
+<!--<body>-->
 
+<!--<div class="container">-->
+<!--    <div th:replace="fragments/header :: header"></div>-->
+<div layout:fragment="content">
     <div class="container">
+        <h3>Добавление нового средства измерения</h3>
         <div class="row">
-            <form class="form-horizontal" action="#" th:action="@{/sensor/saveSensor}" th:object="${sensor}"
-                  name="input_form" id="input_form"
-                  method="post" role="form">
+            <form class="form-horizontal" action="#" th:action="@{/sensor/saveSensor}" th:object="${sensor}" name="input_form" id="input_form" method="post" role="form">
                 <div class="row">
                     <div class="row">
                         <div class="col-md-12">
@@ -35,7 +24,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label control-label-left col-sm-3"
-                                               for="model">model</label>
+                                               for="model">Модель СИ</label>
                                         <div class="controls col-sm-9 ">
                                             <select class="form-control" th:field="${sensor.modelId}">
                                                 <option value=""> --</option>
@@ -286,6 +275,5 @@
         </div>
     </div>
 </div>
-
-</body>
+<!--</body>-->
 </html>

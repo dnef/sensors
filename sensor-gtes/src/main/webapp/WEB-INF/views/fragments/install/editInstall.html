@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body>
-<div class="container">
-    <div th:replace="fragments/header :: header"></div>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Перемещение СИ</title>
+</head>
+<!--<head th:replace="fragments/head :: head"></head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <div th:replace="fragments/header :: header"></div>-->
+<div layout:fragment="content">
+    <div><h3 th:utext="'Перемещение СИ s/n:'+${sensor.sensorNumb}+' установлен на: '+${sensor.locationByLocationId.nameLoc}"></h3></div>
+<!--    <p th:text=" ${sensor.sensorNumb}"></p>-->
     <div class="container">
         <form class="form-horizontal" th:action="@{/install/saveInstall}"
               method="post" role="form">
@@ -13,6 +21,7 @@
                 <input type="hidden" th:id="idSensorOld" th:name="idSensorOld" th:value="*{idSensor}"/>
                 <input type="hidden" th:id="locationIdOld" th:name="locationIdOld" th:value="*{locationId}"/>
             </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
@@ -48,15 +57,18 @@
 
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-                <button type="Reset" class="btn btn-primary">Очистить</button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+<!--                        <button type="Reset" class="btn btn-primary">Очистить</button>-->
+                        <a class="btn btn-danger" th:href="@{/install/installs(idLocation=${locationId})}" role="button">Отмена</a>
+                    </div>
+                </div>
             </div>
         </form>
-        <a th:href="@{/install/installs(idLocation=${locationId})}">
-            <button class="btn btn-primary">Отмена</button>
-        </a>
     </div>
 </div>
-</body>
+<!--</body>-->
 </html>

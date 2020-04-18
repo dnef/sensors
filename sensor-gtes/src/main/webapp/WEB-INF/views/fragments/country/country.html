@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="country">
-    <table class="table table-bordered table-hover horizontal-align">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Страны производства СИ</title>
+</head>
+<!--<div th:fragment="country">-->
+<div layout:fragment="content">
+    <div class="container" style="max-width: 50%">
+    <table class="table table-bordered table-hover horizontal-align table-responsive">
         <a th:href="@{/country/addFormCountry}"><button>New</button></a>
         <thead>
         <tr>
             <th style="width: 5%">#</th>
-            <th style="width: 50%">Country</th>
+            <th style="width: 20%">Country</th>
             <th style="width: 5%">Edit</th>
             <th style="width: 5%">Delete</th>
         </tr>
@@ -23,5 +30,6 @@
         </tr>
         </tbody>
     </table>
+    </div>
 </div>
 </html>

@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body>
-<div class="container">
-    <div th:replace="fragments/header :: header"></div>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title th:title="'Установить СИ на установку' +${location.nameLoc}"></title>
+</head>
+<!--<head th:replace="fragments/head :: head"></head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <div th:replace="fragments/header :: header"></div>-->
+<div layout:fragment="content">
     <div class="container">
+        <h4>Установить СИ</h4>
         <form class="form-horizontal" th:action="@{/install/saveInstall}"
               method="post" role="form">
             <div class="form-group">
@@ -42,15 +49,18 @@
 
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-                <button type="Reset" class="btn btn-primary">Очистить</button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+<!--                        <button type="Reset" class="btn btn-primary">Очистить</button>-->
+                        <a class="btn btn-danger" th:href="@{/install/installs(idLocation=${locationId})}" role="button">Отмена</a>
+                    </div>
+                </div>
             </div>
         </form>
-        <a th:href="@{/install/installs(idLocation=${locationId})}">
-            <button class="btn btn-primary">Отмена</button>
-        </a>
     </div>
 </div>
-</body>
+<!--</body>-->
 </html>

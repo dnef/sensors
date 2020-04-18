@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body>
-<div class="container">
-    <div th:replace="fragments/header :: header"></div>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Редактировать фирму изготовитель СИ</title>
+</head>
+<!--<head th:replace="fragments/head :: head"></head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <div th:replace="fragments/header :: header"></div>-->
+<div layout:fragment="content">
     <div class="container">
 
         <form class="form-horizontal" th:object="${firm}" th:action="@{/firm/saveFirm}" name="edit_form" id="edit_form"
@@ -29,5 +35,5 @@
         </form>
     </div>
 </div>
-</body>
+<!--</body>-->
 </html>

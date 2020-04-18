@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="user">
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{fragments/layout}">
+<head>
+    <title>Пользователи</title>
+</head>
+<div layout:fragment="content">
+    <div class="container">
+    <h4>Пользователи</h4>
     <table style="width:100%" class="table table-bordered table-hover horizontal-align">
         <a th:href="@{/user/addFormUser}"><button>New</button></a>
         <thead>
@@ -29,5 +36,6 @@
         </tr>
         </tbody>
     </table>
+</div>
 </div>
 </html>

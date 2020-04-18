@@ -24,7 +24,7 @@ public class UnitController {
     public String listUnits (Model model){
         model.addAttribute("listUnits",this.unitService.findAll());
         model.addAttribute("template", "unit");
-        return "index";
+        return "fragments/unit/unit";
     }
 
     @GetMapping ("/addFormUnit")

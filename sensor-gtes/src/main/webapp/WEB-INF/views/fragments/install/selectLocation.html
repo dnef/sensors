@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
-<body>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+<title>Установки/площадки</title>
+</head>
+<!--<head th:replace="fragments/head :: head"></head>-->
+<!--<body>-->
+<div layout:fragment="content">
 <div class="container">
-    <div th:replace="fragments/header :: header"></div>
+<!--    <div th:replace="fragments/header :: header"></div>-->
     <div class="btn-group" th:each ="listLocation:${listLocation}">
         <a th:href="@{/install/installs(idLocation=${listLocation.idLocation})}"><button style="width:100px;height:75px" th:text="${listLocation.nameLoc}" th:title="${listLocation.workLoc} == false ?  'Не в работе' : 'В работе' " ></button></a>
     </div>
-    <div th:replace="fragments/footer :: footer"></div>
+<!--    <div th:replace="fragments/footer :: footer"></div>-->
 </div>
-</body>
+</div>
+<!--</body>-->
 </html>

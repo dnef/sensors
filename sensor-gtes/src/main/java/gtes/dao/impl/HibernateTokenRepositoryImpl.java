@@ -10,11 +10,14 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Date;
+import java.util.List;
 
 @Repository("tokenRepositoryDao")
 @Transactional
@@ -57,10 +60,12 @@ public class HibernateTokenRepositoryImpl extends AbstractSecurityDAO<String, Pe
             seriesIdCriteriaQuery.select(persistentLoginRoot);
             Predicate predicate = criteriaBuilder.equal(persistentLoginRoot.get(PersistentLogin_.series), seriesId);
             seriesIdCriteriaQuery.where(predicate);
-            PersistentLogin persistentLogin = createSession().createQuery(seriesIdCriteriaQuery).getSingleResult();
+            TypedQuery<PersistentLogin> persistentLoginTypedQuery = createSession().createQuery(seriesIdCriteriaQuery);
+            PersistentLogin persistentLogin = persistentLoginTypedQuery.getSingleResult();
             return new PersistentRememberMeToken(persistentLogin.getUsername(), persistentLogin.getSeries(),
                     persistentLogin.getToken(), persistentLogin.getLastUsed());
-        } catch (Exception ex) {
+
+        } catch (NoResultException nre) {
             logger.info("Token not found...");
             return null;
         }
@@ -73,17 +78,26 @@ public class HibernateTokenRepositoryImpl extends AbstractSecurityDAO<String, Pe
 //        Criteria criteria = createEntityCriteria();
 //        criteria.add(Restrictions.eq("username", username));
 //        PersistentLogin persistentLogin = (PersistentLogin) criteria.uniqueResult();
+       //TODO:временное решение, logout не срабатывает если в таблице 2 токена
         CriteriaBuilder criteriaBuilder = createSession().getCriteriaBuilder();
         CriteriaQuery<PersistentLogin> persistentLoginCriteriaQuery = criteriaBuilder.createQuery(PersistentLogin.class);
         Root<PersistentLogin> persistentLoginRoot = persistentLoginCriteriaQuery.from(PersistentLogin.class);
         persistentLoginCriteriaQuery.select(persistentLoginRoot);
         Predicate predicate = criteriaBuilder.equal(persistentLoginRoot.get(PersistentLogin_.username), username);
         persistentLoginCriteriaQuery.where(predicate);
-        PersistentLogin persistentLogin = createSession().createQuery(persistentLoginCriteriaQuery).getSingleResult();
-        if (persistentLogin != null) {
-            logger.info("rememberMe was selected");
-            delete(persistentLogin);
+        TypedQuery<PersistentLogin> persistentLoginTypedQuery = createSession().createQuery(persistentLoginCriteriaQuery);
+        try {
+            List<PersistentLogin> persistentLoginList = persistentLoginTypedQuery.getResultList();
+                persistentLoginList.stream().forEach(persistentLogin -> delete(persistentLogin));
+//            PersistentLogin persistentLogin = persistentLoginTypedQuery.getSingleResult();
+//            if (persistentLogin != null) {
+//                logger.info("rememberMe was selected");
+//                delete(persistentLogin);
+//            }
+        } catch (final Exception e) {
+            logger.info("Token not found...");
         }
+
 
     }
 }
