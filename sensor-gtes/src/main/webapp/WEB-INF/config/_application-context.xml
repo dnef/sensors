@@ -109,7 +109,7 @@
     <!-- Add support for reading web resources: css, images, js, etc ... +++++++-->
     <mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
 
-    <!--<mvc:view-controller path="/about.html" view-name="/about/about"/>-->
+    <!--<mvc:view-controller path="/index.html" view-name="/index"/>-->
 
     <mvc:view-controller path="/install.html" view-name="install"/>
 

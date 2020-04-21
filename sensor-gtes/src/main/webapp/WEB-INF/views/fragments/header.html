@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" th:href="@{/about}">Описание</a>
+                <a class="navbar-brand" th:href="@{/index}">Описание</a>
             </div>
             <div class="collapse navbar-collapse" id="main-menu">
                 <ul class="nav navbar-nav">
@@ -56,9 +56,14 @@
                                         sec:authentication="name"></span></a></li>
                                 <li><a class="font-weight-bold">Доступ: <span
                                         sec:authentication="principal.authorities"></span></a></li>
+<!--                                <form th:action="@{/user/updateFormUser(ssoId=${#authentication.name})}">-->
+<!--&lt;!&ndash;                                    <input type="hidden" th:ssoId="${_csrf.parameterName}" th:value="${_csrf.token}"/>&ndash;&gt;-->
+<!--                                    <input type="submit" value="Редактировать"/>-->
+<!--                                    &lt;!&ndash;                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>&ndash;&gt;-->
+<!--                                </form>-->
+                                <li style="text-align: center"><a th:href="@{/user/updateFormPerson(ssoId=${#authentication.name})}"><i class="fa fa-edit" style="font-size:20px"></i></a></li>
                                 <form th:action="@{/logout}" method="post">
                                     <input type="submit" value="Выход"/>
-                                    <!--                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
                                 </form>
                             </ul>
                         </li>

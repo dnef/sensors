@@ -1,106 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.w3.org/1999/xhtml"
-      layout:decorator="layout">
-<head th:replace="fragments/head :: head">
-<!--    <meta charset="UTF-8">-->
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{fragments/layout}">
+<head>
+    <title>Описание</title>
 </head>
-<!--для preloader-->
- <style>
-    body{margin: 0;}
-    .preloader {
-        /*фиксированное позиционирование*/
-        position: fixed;
-        /* координаты положения */
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        /* фоновый цвет элемента */
-        background: #e0e0e0;
-        /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
-        z-index: 1001;
-    }
-
-    .preloader__row {
-        position: relative;
-        top: 50%;
-        left: 50%;
-        width: 70px;
-        height: 70px;
-        margin-top: -35px;
-        margin-left: -35px;
-        text-align: center;
-        animation: preloader-rotate 2s infinite linear;
-    }
-
-    .preloader__item {
-        position: absolute;
-        display: inline-block;
-        top: 0;
-        background-color: #337ab7;
-        border-radius: 100%;
-        width: 35px;
-        height: 35px;
-        animation: preloader-bounce 2s infinite ease-in-out;
-    }
-
-    .preloader__item:last-child {
-        top: auto;
-        bottom: 0;
-        animation-delay: -1s;
-    }
-
-    @keyframes preloader-rotate {
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    @keyframes preloader-bounce {
-
-        0%,
-        100% {
-            transform: scale(0);
-        }
-
-        50% {
-            transform: scale(1);
-        }
-    }
-
-    .loaded_hiding .preloader {
-        transition: 0.3s opacity;
-        opacity: 0;
-    }
-
-    .loaded .preloader {
-        display: none;
-    }
-</style>
-<body>
-<div class="preloader">
-    <div class="preloader__row">
-        <div class="preloader__item"></div>
-        <div class="preloader__item"></div>
-    </div>
-</div>
+<div layout:fragment="content">
 <div class="container">
-<!--    <div class="container-fluid"> на всю ширину экрана-->
-    <div th:replace="fragments/header :: header"></div>
-    <div th:replace="@{'fragments/' +${template}+'/'+ ${template}} :: ${template}"></div>
-    <div th:replace="fragments/footer :: footer"></div>
+<h4>Описание</h4>
+    <div th:inline="text"><span>Привет '[[${#httpServletRequest.remoteUser}]]'</span></div>
+    <p>Бла бла</p>
 </div>
-
-<script>
-    window.onload = function () {
-        document.body.classList.add('loaded_hiding');
-        window.setTimeout(function () {
-            document.body.classList.add('loaded');
-            document.body.classList.remove('loaded_hiding');
-        }, 500);
-    }
-</script>
-</body>
+</div>
 </html>

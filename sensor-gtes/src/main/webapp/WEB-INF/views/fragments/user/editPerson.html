@@ -10,23 +10,15 @@ layout:decorate="~{fragments/layout}">
 <div layout:fragment="content">
 
     <div class="container">
-        <form class="form-horizontal" action="#" th:action="@{/user/saveEditUser}" th:object="${user}" method="post" >
+        <form class="form-horizontal" action="#" th:action="@{/user/saveEditPerson}" th:object="${user}" method="post" >
             <div class="form-group">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <!--                <input type="hidden" th:name="${edit}" th:value="${edit}"/>-->
-                <input type="hidden" id="id" th:name="id" th:value="*{id}"/>
-                <div sec:authorize="hasRole('ADMIN')">
-                    <label class="form-inline" for="role">Роль пользователя:</label>
-                    <select id="role" th:field="*{userProfiles}">
-                        <option th:each="roles:${roles}"
-                                th:value="${roles.id}"
-                                th:utext="${roles.type}"></option>
-                    </select>
-                </div>
+                <input type="hidden" th:id="id" th:name="id" th:value="*{id}"/>
+                <span style="font-size: 14pt;font-weight: bold">Логин: <span style="font-size: 14pt;font-weight: bold" sec:authentication="name"></span></span>
+                <span>Роль доступа: <span sec:authentication="principal.authorities"></span></span>
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="form-inline" for="ssoId">Логин:</label>
-                        <input type="text" class="form-control" id="ssoId" th:field="*{ssoId}" placeholder="Enter login." maxlength="30"/>
                         <label class="form-check-label" for="firstName">Фамилия:</label>
                         <input type="text" class="form-control" id="firstName" th:field="*{firstName}" placeholder="Enter first name." maxlength="30"/>
                         <label class="form-check-label" for="lastName">Имя:</label>
@@ -59,7 +51,7 @@ layout:decorate="~{fragments/layout}">
                         <div class="btn-group">
                             <button type="submit" class="btn btn-success">Сохранить</button>
                             <button type="Reset" class="btn btn-primary">Очистить</button>
-                            <a class="btn btn-danger" th:href="@{/user/users}" role="button">Отмена</a></div>
+                            <a class="btn btn-danger" th:href="@{/index}" role="button">Отмена</a></div>
                     </div>
                 </div>
             </div>

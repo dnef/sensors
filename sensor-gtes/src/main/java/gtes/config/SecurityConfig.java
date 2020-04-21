@@ -93,16 +93,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .authorizeRequests().antMatchers("/install/**", "/403","/archive/**","/sensor/sensors/**","/about").authenticated()//hasAnyRole("ADMIN","KIP","USER")
+                .authorizeRequests().antMatchers("/install/**", "/403","/archive/**","/sensor/sensors/**",
+                "/index","/user/updateFormPerson**","/user/saveEditPerson").authenticated()//hasAnyRole("ADMIN","KIP","USER")
                 .antMatchers("/login**", "/login?expired").permitAll()
                 .antMatchers("/disposal/**").hasAnyRole("ADMIN", "KIP","DBA")
-                .antMatchers("/user").hasAnyRole("ADMIN", "KIP","DBA")
-                .antMatchers("/editUser*", "/deleteUser*").hasAnyRole("ADMIN")
+                .antMatchers("/user/users*").hasAnyRole("ADMIN", "KIP","DBA")
+                .antMatchers( "/user/**","/deleteUser*","/updateFormUser*","/addFormUser*").hasAnyRole("ADMIN")
                 .anyRequest().hasAnyRole("ADMIN", "KIP","DBA")
                 .and()
                 .formLogin().loginPage("/login").loginProcessingUrl("/loginAction").usernameParameter("ssoId").passwordParameter("password")
                 .failureUrl("/login?error").permitAll()
-                .defaultSuccessUrl("/about", true)
+                .defaultSuccessUrl("/index", true)
                 .and()
                 .rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository).userDetailsService(userDetailsService)
                 .tokenValiditySeconds(86400)

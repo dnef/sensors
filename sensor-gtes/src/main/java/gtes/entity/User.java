@@ -14,7 +14,10 @@ import java.util.Set;
 @Table(name="app_user")
 @UniqueSSO
 public class User implements Serializable {
-
+    public interface UpdateUser {
+    }
+    public interface UpdateAdmin {
+    }
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
@@ -24,14 +27,20 @@ public class User implements Serializable {
     private String ssoId;
 
     @NotBlank
+//    @NotBlank(groups = UpdateAdmin.class)
+    @NotBlank(groups = UpdateUser.class)
     @Column(name="password", nullable=false)
     private String password;
 
     @NotBlank
+//    @NotBlank(groups = UpdateAdmin.class)
+    @NotBlank(groups = UpdateUser.class)
     @Column(name="first_name", nullable=false)
     private String firstName;
 
     @NotBlank
+//    @NotBlank(groups = UpdateAdmin.class)
+    @NotBlank(groups = UpdateUser.class)
     @Column(name="last_name", nullable=false)
     private String lastName;
 
@@ -39,7 +48,9 @@ public class User implements Serializable {
     @Column(name="patronymic", nullable=false)
     private String patronymic;
 
-    @Email
+    @NotBlank
+//    @Email(groups = UpdateAdmin.class)
+    @Email(groups = UpdateUser.class)
     @Column(name="email", nullable=false)
     private String email;
 
